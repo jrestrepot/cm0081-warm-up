@@ -1,3 +1,5 @@
+import Test.QuickCheck
+
 -- | Append two lists.
 myAppend :: [a] -> [a] -> [a]
 myAppend [] [] = []
@@ -5,15 +7,13 @@ myAppend [] x = x
 myAppend x [] = x
 myAppend (x:xs) y = (x:myAppend xs y)  
 
-main = print(myAppend [1,2] [3,7,8,5])
   
-
+-- | Extract the last element of a list, which must be finite and
+-- non-empty. The function generates an error if the list is empty.
 myLast :: [a] -> a
 myLast [] = error "Empty list"
 myLast [x] = x
 myLast (x:xs) = myLast xs
-
-main = myLast []
 
 
 -- | Test whether a list is empty.
@@ -22,7 +22,23 @@ myNull [] = True
 myNull [x] = False
 myNull (x:xs) = False
 
-main = print(myNull [78, 5, 6, 7])
+
+-- | Testing 'myAppend' function.
+propMyAppend :: [Int] -> [Int] -> Bool
+propMyAppend x y = length(myAppend x y) == (length x + length y)
 
 
+-- | Testing 'myNull' function.
+propMyNull:: [Int] -> Bool
+propMyNull x
+    | myNull x  = length(x) == 0
+    | otherwise = length(x) > 0
+
+
+main :: IO ()
+main = do
+    quickCheck propMyAppend
+    quickCheck propMyNull
+
+ 
 
