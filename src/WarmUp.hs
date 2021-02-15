@@ -25,7 +25,7 @@ myNull (x:xs) = False
 
 -- | Testing 'myAppend' function.
 propMyAppend :: [Int] -> [Int] -> Bool
-propMyAppend x y = length(myAppend x y) == (length x + length y)
+propMyAppend x y = x++y == myAppend x y
 
 
 -- | Testing 'myNull' function.
@@ -33,6 +33,7 @@ propMyNull:: [Int] -> Bool
 propMyNull x
     | myNull x  = length(x) == 0
     | otherwise = length(x) > 0
+
 
 
 main :: IO ()
