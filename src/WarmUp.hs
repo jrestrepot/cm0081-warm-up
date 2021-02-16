@@ -27,6 +27,10 @@ myNull (x:xs) = False
 propMyAppend :: [Int] -> [Int] -> Bool
 propMyAppend x y = x++y == myAppend x y
 
+-- | Testing 'myLast' function.
+propMyLast :: [Int] -> Property
+propMyLast xs = (not (myNull xs)) ==> myLast xs == last xs
+
 
 -- | Testing 'myNull' function.
 propMyNull:: [Int] -> Bool
@@ -40,6 +44,6 @@ main :: IO ()
 main = do
     quickCheck propMyAppend
     quickCheck propMyNull
-
+    quickCheck propMyLast
  
 
